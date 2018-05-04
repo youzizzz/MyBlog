@@ -38,9 +38,10 @@ public class YouZiSessionDao extends CachingSessionDAO {
 		//手动更新放过
 		String updateSession=request.getParameter("updateSession");
 		if("true".equals(updateSession)) {
+			super.update(session);
 			return;
 		}
-		super.update(session);
+	
 	}
 
 	@Override
@@ -59,9 +60,10 @@ public class YouZiSessionDao extends CachingSessionDAO {
 
 	@Override
 	protected Session doReadSession(Serializable sessionId) {
-		Session s=readSession(sessionId);
+		/*Session s=readSession(sessionId);
 		System.out.println("readSession----->"+s+"\r\r this is SessionId-->"+sessionId);
-		return s;
+		return s;*/
+		return null;
 	}
 
 }

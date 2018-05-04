@@ -51,8 +51,8 @@ public class MyRealm extends AuthorizingRealm {
 		UsernamePasswordToken upToke = (UsernamePasswordToken) token;
 		String username = upToke.getUsername();
 		User user = userDao.login(username);
-		return new SimpleAuthenticationInfo(username,
-				user.getPassword() == null ? "" : user.getPassword(),
+		return new SimpleAuthenticationInfo(username==null?"":username,
+				(user==null?"":user.getPassword() == "" ? "" : user.getPassword()),
 				this.getClass().getName());
 	}
 

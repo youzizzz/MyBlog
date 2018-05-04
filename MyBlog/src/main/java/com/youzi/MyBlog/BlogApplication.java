@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @MapperScan("com.youzi.MyBlog.dao")
-public class MainApplication {
+public class BlogApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(MainApplication.class, args);
+		SpringApplication.run(BlogApplication.class, args);
 	}
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource")

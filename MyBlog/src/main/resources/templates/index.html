@@ -19,7 +19,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
-<script src="love.js"></script>
+<script src="js/love.js"></script>
 <title>皮皮柚|一个很皮的程序员</title>
 <style type="text/css">
 .p-opt:hover {
@@ -126,7 +126,7 @@
 					<tbody>
 						<tr>
 							<td class="col-sm-6 col-md-3"><a href="#"
-								class="thumbnail p-opt"> <img src="../static/images/apple.jpg"
+								class="thumbnail p-opt"> <img src="images/apple.jpg"
 									alt="通用的占位符缩略图" title="">
 							</a></td>
 							<td><p>
@@ -171,28 +171,40 @@
 					</nav>
 				</div>
 			</div>
-			   <div class="col-md-3">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">联系我们</h3>
-            </div>
-            <div class="panel-body">
-				<p>Q&nbsp;Q:1272684075</p>
-				<p>Email:<a href="mailto:tyz2610@sina.com">tyz2610@sina.com</a></p>
+			<div class="col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">联系我们</h3>
+					</div>
+					<div class="panel-body">
+						<p>Q&nbsp;Q:1272684075</p>
+						<p>
+							Email:<a href="mailto:tyz2610@sina.com">tyz2610@sina.com</a>
+						</p>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>专业技能
+					</div>
+					<div class="panel-body">
+						<div>
+							<button type="button" class="btn btn-secondary btn-sm"
+								data-toggle="tooltip" data-placement="bottom"
+								title="Tooltip on top">Tooltip on top</button>
+						</div>
+					</div>
+				</div>
 			</div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading"><span
-										class="glyphicon glyphicon-tag" aria-hidden="true"></span>专业技能</div>
-            <div class="panel-body">
-              <div>
-<button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Tooltip on top">
-  Tooltip on top
-</button>
-            </div>
-          </div>
-        </div>
-      </div>
+			<div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div>
+			<script charset="utf-8" type="text/javascript"
+				src="https://changyan.sohu.com/upload/changyan.js"></script>
+			<script type="text/javascript">
+				window.changyan.api.config({
+					appid : 'cytB5znEB',
+					conf : 'prod_30eb3acf1f4454a6383981ada1dbc0bb'
+				});
+			</script>
 		</div>
 	</div>
 	<div id="register" class="modal fade" tabindex="-1">
@@ -207,7 +219,7 @@
 					<h1 class="text-center">注册</h1>
 				</div>
 				<div class="modal-body">
-					<form class="form-group" action="">
+					<form class="form-group" id="registerfo">
 						<div class="form-group">
 							<label for="">用户名</label> <input class="form-control"
 								name="username" type="text" placeholder="6-15位字母或数字">
@@ -248,7 +260,7 @@
 					<h1 class="text-center">登录</h1>
 				</div>
 				<div class="modal-body">
-					<form class="form-group" action="">
+					<form class="form-group" id="loginfo">
 						<div class="form-group">
 							<label for="">用户名</label> <input class="form-control"
 								name="username" type="text" placeholder="">
@@ -270,6 +282,7 @@
 	</div>
 	<script>
 		$(function() {
+			console.info("--begin--");
 			$("[data-toggle='tooltip']").tooltip();
 			$('form').bootstrapValidator({
 				message : 'This value is not valid',
@@ -346,7 +359,23 @@
 					}
 				}
 			});
+			$("#loginfo").submit(function() {
+				$.post("/login", {
+					"userName" : $("#loginfo input[name=username]").val(),
+					"password" : $("#loginfo input[name=password]").val()
+				}, function(data) {
+					if(data==="success"){
+						$("#loginfo").modal("hide");
+						window.location.reload();
+					}else{
+						$("#loginfo div:eq(1) i:eq(0)").removeClass("glyphicon-ok").addClass("glyphicon-remove");
+						$("#loginfo div:eq(1)").removeClass("has-success").addClass("has-error");
+						$("#loginfo div:eq(1) small:eq(0)").html("输入密码有误").show().css("color","red");
+					}
+				});
 
+				return false;
+			})
 		});
 	</script>
 </body>

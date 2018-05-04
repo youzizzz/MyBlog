@@ -17,7 +17,8 @@ import com.alibaba.fastjson.support.spring.FastJsonJsonView;
 
 @Configuration
 public class MyExceptionHandler implements HandlerExceptionResolver {  
-  
+	
+	@Override
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception ex) {  
         ModelAndView mv = new ModelAndView();  
         FastJsonJsonView view = new FastJsonJsonView();  
@@ -40,4 +41,5 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
         mv.setView(view);  
         return mv;  
     }  
+    
 } 

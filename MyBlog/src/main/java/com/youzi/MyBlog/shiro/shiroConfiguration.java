@@ -41,10 +41,9 @@ public class shiroConfiguration {
 		LinkedHashMap<String, String> liMap = new LinkedHashMap<>();
 		liMap.put("/login", "anon");
 		liMap.put("/logout", "anon");
-		liMap.put("/static/*", "anon");
-		liMap.put("/static/layui-v2.2.6/*", "anon");
-		liMap.put("/static/layui-v2.2.6/layui/*", "anon");
-		liMap.put("/user", "authc");
+		liMap.put("/static/js/*", "anon");
+		liMap.put("/static/images/*", "anon");
+		liMap.put("/user/**", "authc");
 		bean.setFilterChainDefinitionMap(liMap);
 		return bean;
 	}
