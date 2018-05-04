@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youzi.MyBlog.dao.UserDao">
+	<resultMap type="com.youzi.MyBlog.entity.User"
+		id="userMap">
+		<id column="id" property="id" />
+		<result column="password" property="password"></result>
+		<result column="username" property="userName"/>
+		<result column="createdate" property="createdate"/>
+		<result column="lastupdatedate" property="lastupdatedate"/>
+		<result column="email" property="email"/>
+		<collection property="roles"
+			ofType="com.youzi.MyBlog.entity.Role">
+			<id column="rid" property="rid" />
+			<result column="rname" property="rname"/>
+			<collection property="modules"
+				ofType="com.youzi.MyBlog.entity.Permission">
+				<id column="pid" property="pid"></id>
+				<result column="pname" property="pname"/>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<select id="login" resultMap="userMap"> 
+	select user.*,r.*,m.*	from My_User user inner join User_Role ur on user.id=ur.id inner join My_Role r
+		on r.rid=ur.rid inner join Role_Permission mr on r.id=mr.id inner join
+		My_Permission m on m.id=mr.id where user.username=#{username}
+	</select>
+
+</mapper>
+
