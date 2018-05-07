@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+
 /**
  * shiro配置类
  * 
@@ -64,6 +66,11 @@ public class shiroConfiguration {
 		return sessionManager;
 	}
 
+	@Bean  
+	public ShiroDialect shiroDialect() {  
+	    return new ShiroDialect();  
+	}  
+	
 	@Bean(name = "sessionDao")
 	public SessionDAO sessionDao() {
 		System.out.println("sessionDao----->");

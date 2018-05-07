@@ -35,6 +35,7 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
             attributes.put("msg", "密码错误");  
         }else {
             attributes.put("code", "1000004");  
+            ex.printStackTrace();
             attributes.put("msg", ex.getMessage());  
         }
         view.setAttributesMap(attributes);  
