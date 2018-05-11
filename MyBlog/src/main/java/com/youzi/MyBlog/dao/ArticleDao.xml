@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youzi.MyBlog.dao.ArticleDao">
+
+<select id="findAll" resultType="com.youzi.MyBlog.entity.Article">
+	<include refid="selectPrefix" />
+</select>
+
+<select id="findById" resultType="com.youzi.MyBlog.entity.Article">
+	<include refid="selectPrefix" /> where id=#{id}
+</select>
+
+<sql id="selectPrefix">
+	select * from Article
+</sql>
+<update id="updateLookNumById">
+	update Article set looknum=looknum+1 where id=#{id}
+</update>
+
+<select id="findByName" parameterType="String" resultType="com.youzi.MyBlog.entity.Article">
+	<include refid="selectPrefix" /> where title like CONCAT('%',#{name},'%')
+</select>
+
+<select id="findByTechnical" parameterType="String" resultType="com.youzi.MyBlog.entity.Article">
+	<include refid="selectPrefix" /> where technicals like CONCAT('%',#{Technical},'%')
+</select>
+
+<insert id="insert" parameterType="com.youzi.MyBlog.entity.Article" useGeneratedKeys="true">
+		insert into Article(id,title,content,description,looknum,createTime,technicals,cty) 
+		values(#{id},#{title},#{content},#{description},#{looknum},#{createTime},#{technicals},#{cty})
+</insert>
+</mapper>

@@ -9,4 +9,8 @@ import com.youzi.MyBlog.entity.User;
 public interface UserDao {
 
 	public User login(@Param("username")String username);
+	
+	public int findUserByName(@Param("username")String username);
+	
+	public int saveUser(User user);
 }

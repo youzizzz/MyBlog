@@ -19,44 +19,57 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class CommonController {
 
-    @ResponseBody
-    @RequestMapping(value = "ueditor",headers = "Accept=application/json")
-    public String ueditor(@RequestParam("action") String action, @RequestParam("noCache") String nocache, HttpServletRequest request, HttpServletResponse response){
-        try {
-            response.setContentType("application/json;charset=utf-8");
-            Resource resource = new ClassPathResource("config.json");
-            File file = resource.getFile();
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null){
-                stringBuilder.append(line);
-            }
-            return stringBuilder.toString();
-        }catch (Exception e){
-            e.printStackTrace();
-            return "error";
-        }
-    }
-    
-    @RequestMapping("ImgUpload")
-    @ResponseBody
-    public String imgUpload3(MultipartFile upfile) {
-    	
-    	File file=new File("E:\\images\\"+upfile.getOriginalFilename());
-    	  //url的值为图片的实际访问地址 这里我用了Nginx代理，访问的路径是http://localhost/xxx.png
-        String config = "{\"state\": \"SUCCESS\"," +
-                "\"url\": \"" +upfile.getOriginalFilename() + "\"," +
-                "\"title\": \"" + upfile.getOriginalFilename() + "\"," +
-                "\"original\": \"" + upfile.getOriginalFilename()+ "\"}";
-    	try {
+	@ResponseBody
+	@RequestMapping(value = "ueditor", headers = "Accept=application/json")
+	public String ueditor(@RequestParam("action") String action,
+			@RequestParam("noCache") String nocache, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			response.setContentType("application/json;charset=utf-8");
+			// Jar包内获取指定配置文件
+			// 生产环境
+			/*
+			 * InputStream is = this.getClass()
+			 * .getResourceAsStream("/BOOT-INF/classes/config.json");
+			 * BufferedReader br = new BufferedReader(new
+			 * InputStreamReader(is));
+			 */
+
+			// 开发环境
+
+			Resource resource = new ClassPathResource("config.json");
+			File file = resource.getFile();
+			BufferedReader br = new BufferedReader(new FileReader(file));
+
+			StringBuilder stringBuilder = new StringBuilder();
+			String line;
+			while ((line = br.readLine()) != null) {
+				stringBuilder.append(line);
+			}
+			return stringBuilder.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	@RequestMapping("ImgUpload")
+	@ResponseBody
+	public String imgUpload3(MultipartFile upfile) {
+
+		File file = new File("E:\\images\\" + upfile.getOriginalFilename());
+		// url的值为图片的实际访问地址 这里我用了Nginx代理，访问的路径是http://localhost/xxx.png
+		String config = "{\"state\": \"SUCCESS\"," + "\"url\": \""
+				+ upfile.getOriginalFilename() + "\"," + "\"title\": \""
+				+ upfile.getOriginalFilename() + "\"," + "\"original\": \""
+				+ upfile.getOriginalFilename() + "\"}";
+		try {
 			upfile.transferTo(file);
-			 return config;
+			return config;
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
-			 return "error";
+			return "error";
 		}
-              
-       
-    }
+
+	}
 }

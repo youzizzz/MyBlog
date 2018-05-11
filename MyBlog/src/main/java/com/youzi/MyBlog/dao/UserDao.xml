@@ -26,6 +26,14 @@
 		Role_Permission mr on r.rid=mr.rid left join My_Permission m on
 		m.pid=mr.pid where user.username=#{username}
 	</select>
+	
+	<select id="findUserByName" resultType="int">
+		select count(1) from My_User where username=#{username}
+	</select>
+	
+	<insert id="saveUser" useGeneratedKeys="true" parameterType="com.youzi.MyBlog.entity.User">
+		insert into My_User(id,username,password,lastupdate,createdate,email) values(#{id},#{userName},#{password},#{lastUpdateDate},#{createDate},#{email})
+	</insert>
 
 </mapper>
 

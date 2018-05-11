@@ -38,9 +38,7 @@ public class JedisUtils {
 
 	public static final String KEY_PREFIX = "ppy_";
 
-	// 前台APP配置参数存储的Key
-	public static final String KEY_APP_CONFIG = "appConfig";
-
+	
 	/**
 	 * 获取缓存
 	 * 

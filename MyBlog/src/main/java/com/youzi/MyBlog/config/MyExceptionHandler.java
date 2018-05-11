@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -33,7 +34,11 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
         } else if(ex instanceof IncorrectCredentialsException){
         	attributes.put("code", "1000003");  
             attributes.put("msg", "密码错误");  
-        }else {
+        }else if(ex instanceof ExcessiveAttemptsException) {
+        	attributes.put("code", "1000006");  
+            attributes.put("msg", "连续输入五次错误密码,账号锁定");  
+        }
+        else {
             attributes.put("code", "1000004");  
             ex.printStackTrace();
             attributes.put("msg", ex.getMessage());  

@@ -44,6 +44,7 @@ public class shiroConfiguration {
 		liMap.put("/login", "anon");
 		liMap.put("/logout", "anon");
 		liMap.put("/static/js/*", "anon");
+		liMap.put("/static/css/*", "anon");
 		liMap.put("/static/images/*", "anon");
 		liMap.put("/user/**", "authc");
 		bean.setFilterChainDefinitionMap(liMap);

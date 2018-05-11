@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="top::toppage">
+</head>
+<body>
+<div class="col-md-3" th:fragment="rightInfo">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">联系我们</h3>
+					</div>
+					<div class="panel-body">
+						<p>Q&nbsp;Q:1272684075</p>
+						<p>
+							Email:<a href="mailto:tyz2610@sina.com">tyz2610@sina.com</a>
+						</p>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">欢迎分享PPY的博客</h3>
+					</div>
+					<div class="panel-body">
+						<div class="bshare-custom icon-medium-plus">
+							<a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博"
+								class="bshare-sinaminiblog"></a><a title="分享到人人网"
+								class="bshare-renren"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a
+								title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台"
+								class="bshare-more bshare-more-icon more-style-addthis"></a><span
+								class="BSHARE_COUNT bshare-share-count">0</span>
+						</div>
+					</div>
+				</div>
+				<script type="text/javascript" charset="utf-8"
+					src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+				<script type="text/javascript" charset="utf-8"
+					src="http://static.bshare.cn/b/bshareC0.js"></script>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>专业技能
+					</div>
+					<div class="panel-body">
+					<span th:if="${null==tcs}">
+						<a>dd</a>
+					</span>
+						<div>
+							<button type="button" class="btn btn-secondary btn-sm tcs"
+								data-toggle="tooltip" data-placement="bottom"
+								th:each="prod : ${tcs}" th:title="${prod.name}"
+								th:id="${prod.id}" onclick="jump(this)">
+								<span th:text="${prod.name}"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">热门文章</div>
+					<div class="panel-body"></div>
+				</div>
+			</div>
+</body>
+</html>

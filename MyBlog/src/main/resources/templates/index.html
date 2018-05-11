@@ -1,480 +1,78 @@
 <!DOCTYPE html>
 <html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
 	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<head>
-<meta name="generator"
-	content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
-<!-- Required meta tags -->
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<script
-	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link
-	href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.css"
-	rel="stylesheet">
-<link rel="shortcut icon" href="images/youzi.ico">
-<script
-	src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
-<script src="js/love.js"></script>
-<title>皮皮柚|一个很皮的程序员</title>
-<style type="text/css">
-.p-opt:hover {
-	opacity: 0.8;
-}
-
-.p-opt {
-	margin-left: -7px !important;
-}
-
-.q-qrcode {
-	margin: 11px 0px;
-}
-
-.tcs{
-	margin-right:5.5px;
-	margin-top:3px;
-}
-.blogtitle {
-	font-weight: bold;
-	font-size: 18px;
-	color: black;
-	font-family: "黑体";
-	display: inherit;
-}
-
-.blogtitle:hover {
-	text-decoration: none;
-	color: #B4CDCD;
-}
-
-.p-info {
-	text-indent: 2em;
-}
-
-.ydqw {
-	margin-top: -6px;
-}
-
-.btn-ydqw:hover {
-	background-color: #FFD700;
-}
-
-.bySin {
-	padding-top: 5px;
-	color: #F0FFF0;
-	text-indent: 3em;
-}
-
-.p-login:hover {
-	text-decoration: none;
-}
-
-.p-login {
-	color: white;
-	position: relative;
-	left: 79%;
-}
-
-.bt-cpy {
-	margin-top: 12px;
-	width: 80%;
-	height: 156px;
-	border-left: 1px solid #4B4B4B;
-}
-
-.bt-cpy ul {
-	list-style-type: none;
-	padding: 12px 37px;
-}
-
-.bt-cpy ul li {
-	font-size: 12px;
-	float: left;
-}
-
-.bt-cpy ul li a {
-	color: #C0C0C0;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.bt-cpy ul li span {
-	color: #758F75;
-	margin: 8px 16px;
-}
-
-.bt-cpy p {
-	color: #C0C0C0;
-	padding-left: 36px;
-}
-
-.bt-cpy p span {
-	line-height: 1px;
-}
-
-.login-success {
-	color: white;
-	position: relative;
-	left: 75%;
-}
-</style>
+<head th:include="top::toppage">
 </head>
 <body>
 	<div class="container">
-		<div id="top">
-			<nav class="navbar navbar-inverse" role="navigation">
-				<p
-					style="width: 100%; height: 30px; background-color: #CCC; text-top: 1opx;">
-					<label class="bySin">一皮就是一天</label> <span> <shiro:guest>
-							<a class="p-login" data-toggle="modal" data-target="#login">登录</a>
-						</shiro:guest> <shiro:user>
-							<span class="login-success">欢迎: <shiro:principal /></span>
-						</shiro:user></span>
-				</p>
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="#">皮皮博客</a>
-					</div>
-					<div>
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="#">首页</a></li>
-							<li><a href="#">后端</a></li>
-							<!--<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Java <b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">jmeter</a></li>
-						<li><a href="#">EJB</a></li>
-						<li><a href="#">Jasper Report</a></li>
-						<li class="divider"></li>
-						<li><a href="#">分离的链接</a></li>
-						<li class="divider"></li>
-						<li><a href="#">另一个分离的链接</a></li>
-					</ul>
-				</li>-->
-							<li><a href="#">前端</a></li>
-							<li><a href="#">数据库</a></li>
-							<li><a href="#">运维</a></li>
-							<li><a href="#">留言板</a></li>
-						</ul>
-					</div>
-					<form class="navbar-form navbar-right">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="请输入关键字">
-						</div>
-						<button type="submit" class="btn btn-default">Search</button>
-					</form>
-				</div>
-			</nav>
-
-		</div>
+		<div th:include="top::topmenu"></div>
 		<div class="row">
 			<div class="col-md-9">
 				<table class="table">
 					<div class="alert alert-success alert-dismissable">最新博客</div>
 					<tbody>
-						<tr>
-							<td class="col-sm-6 col-md-3"><a href="#"
-								class="thumbnail p-opt"> <img src="images/apple.jpg"
+						<tr th:each="art:${artcles.list}">
+							<td class="col-sm-6 col-md-3"><a
+								th:href="@{'/artcleinfo/'+${art.id}}" target="_blank"
+								class="thumbnail p-opt"> <img th:src="@{'/'+${art.ThumbnailUrl}}"
 									alt="通用的占位符缩略图" title="">
 							</a></td>
 							<td><p>
-									<a href="#" class="blogtitle">测试标题一号</a> <span
+									<a th:href="@{'/artcleinfo/'+${art.id}}" target="_blank"
+										class="blogtitle" th:text="${art.title}"></a> <span
 										class="glyphicon glyphicon-user" aria-hidden="true"></span>
 									用户：皮皮柚 <span class=" glyphicon glyphicon-calendar"
-										aria-hidden="true"></span> 2018-04-01 <span
-										class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-									测试 <span class="glyphicon glyphicon-eye-open"
-										aria-hidden="true"></span> 0
-								<p class="p-info">text-overflow是一个比较特殊的样式，我们可以用它代替我们通常所用的标题截取函数，而且这样做对搜索引擎更加友好，如：标题文件有50
-									个汉字，而我们的列表可能只有300px的宽度。如果用标题截取函数，则标题不是完整的，如果我们用CSS样式text-
-									overflow:ellipsis，输出的标题是完整的，只是受容器大小的局限不显示出来罢了。</p>
+										aria-hidden="true"></span> <span
+										th:text="${#dates.format(art.createTime,'yyyy-MM-dd')}"></span>
+									<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+									<span th:text="${art.cty}"></span> <span
+										class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+									<span th:text="${art.looknum}"></span>
+								<p class="p-info" th:text="${art.description}" /></p>
 								<form class="navbar-form ydqw">
 									<button
-										class="btn btn-default btn-sm navbar-right btn-success btn-ydqw">阅读全文</button>
-								</form>
-								</p></td>
+										class="btn btn-default btn-sm navbar-right btn-success btn-ydqw"
+										onclick="ArtcleTar(this)" th:href="@{'/artcleinfo/'+${art.id}}">阅读全文</button>
+								</form></td>
 
 						</tr>
 					</tbody>
 				</table>
-				<div>
+				<div id="page">
+					<input type="hidden" id="hidpage" th:value="${artcles.pageNum}" />
 					<nav aria-label="Page navigation">
 						<ul class="pagination">
-							<li><a href="#" aria-label="Previous"> <span
-									aria-hidden="true">&laquo;</span>
+							<li th:if="${artcles.pageNum!=1}"><a
+								th:href="@{'/home/'+${artcles.pageNum-1}}"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 							</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#" aria-label="Next"> <span
-									aria-hidden="true">&raquo;</span>
+							<li><a th:href="@{'/home/'+${artcles.pageNum}}"
+								th:text="${artcles.pageNum}"></a></li>
+							<li th:if="${artcles.pageNum}+1<=${artcles.pages}"><a
+								th:href="@{'/home/'+${artcles.pageNum+1}}"
+								th:text="${artcles.pageNum}+1"></a></li>
+							<li th:if="${artcles.pageNum}+2<=${artcles.pages}"><a
+								th:href="@{'/home/'+${artcles.pageNum+2}}"
+								th:text="${artcles.pageNum}+2"></a></li>
+							<li th:if="${artcles.pageNum}+3<=${artcles.pages}"><a
+								th:href="@{'/home/'+${artcles.pageNum+3}}"
+								th:text="${artcles.pageNum}+3"></a></li>
+							<li th:if="${artcles.pageNum}+4<=${artcles.pages}"><a
+								th:href="@{'/home/'+${artcles.pageNum+4}}"
+								th:text="${artcles.pageNum}+4"></a></li>
+							<li th:if="${artcles.pageNum}!=${artcles.pages}"><a
+								th:href="@{'/home/'+${artcles.pageNum+1}}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
 							</a></li>
 						</ul>
 					</nav>
 				</div>
 			</div>
-			<div class="col-md-3">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">联系我们</h3>
-					</div>
-					<div class="panel-body">
-						<p>Q&nbsp;Q:1272684075</p>
-						<p>
-							Email:<a href="mailto:tyz2610@sina.com">tyz2610@sina.com</a>
-						</p>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>专业技能
-					</div>
-					<div class="panel-body" >
-					
-						<div>
-							<button type="button" class="btn btn-secondary btn-sm tcs"
-								data-toggle="tooltip" data-placement="bottom"
-								 th:each="prod : ${tcs}" th:title="${prod.name}" th:id="${prod.id}" onclick="jump(this)"><span th:text="${prod.name}"></span></button>
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">热门文章</div>
-					<div class="panel-body"></div>
-				</div>
-			</div>
-			<!-- <div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div>
-			<script charset="utf-8" type="text/javascript"
-				src="https://changyan.sohu.com/upload/changyan.js"></script>
-			<script type="text/javascript">
-				window.changyan.api.config({
-					appid : 'cytB5znEB',
-					conf : 'prod_30eb3acf1f4454a6383981ada1dbc0bb'
-				});
-			</script> -->
+			<div class="col-md-3" th:include="right::rightInfo"></div>
+			
 		</div>
-		<div class="footer">
-			<nav class="navbar navbar-inverse" role="navigation">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-2 footer-sol">
-							<a href="#" class="thumbnail q-qrcode"> <img
-								src="images/apple.jpg" alt="通用的占位符缩略图" title="">
-							</a>
-						</div>
-						<div class="col-md-9">
-							<div name="footer-coy" class="bt-cpy">
-								<ul>
-									<li><a href="home">Tangyouzhi</a><span>|</span></li>
-									<li><a href="javascript:void(0);">手机访问</a><span>|</span></li>
-									<li><a
-										href="http://wpa.qq.com/msgrd?v=3&uin=1272684075&site=qq&menu=yes"
-										target="_blank">QQ联系</a> <span>|</span></li>
-									<li><a href="javascript:void(0);">关于本站</a> <span>|</span></li>
-									<li><a href="javascript:void(0);">留言板</a></li>
-								</ul>
-								<p>
-									<span>&copyright;2014-2017 Test404 All right reserved.
-										版权所有</span><br /> <span>Powered by PPY</span><br /> <span>
-										sitemap</span>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</div>
+		<div th:include="footer::footerPage"></div>
 	</div>
-	<div id="register" class="modal fade" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<button class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-				<div class="modal-title">
-					<h1 class="text-center">注册</h1>
-				</div>
-				<div class="modal-body">
-					<form class="form-group" id="registerfo">
-						<div class="form-group">
-							<label for="">用户名</label> <input class="form-control"
-								name="username" type="text" placeholder="6-15位字母或数字">
-						</div>
-						<div class="form-group">
-							<label for="">密码</label> <input class="form-control"
-								name="password" type="password" placeholder="至少6位字母或数字">
-						</div>
-						<div class="form-group">
-							<label for="">再次输入密码</label> <input class="form-control"
-								name="repassword" type="password" placeholder="至少6位字母或数字">
-						</div>
-						<div class="form-group">
-							<label for="">邮箱</label> <input class="form-control" name="email"
-								type="email" placeholder="例如:123@123.com">
-						</div>
-						<div class="text-right">
-							<button class="btn btn-primary" type="submit">提交</button>
-							<button class="btn btn-danger" data-dismiss="modal">取消</button>
-						</div>
-						<a href="" data-toggle="modal" data-dismiss="modal"
-							data-target="#login">已有账号？点我登录</a>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 登录窗口 -->
-	<div id="login" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<button class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-				<div class="modal-title">
-					<h1 class="text-center">登录</h1>
-				</div>
-				<div class="modal-body">
-					<form class="form-group" id="loginfo">
-						<div class="form-group">
-							<label for="">用户名</label> <input class="form-control"
-								name="username" type="text" placeholder="">
-						</div>
-						<div class="form-group">
-							<label for="">密码</label> <input class="form-control"
-								name="password" type="password" placeholder="">
-						</div>
-						<div class="text-right">
-							<button class="btn btn-primary" type="submit">登录</button>
-							<button class="btn btn-danger" data-dismiss="modal">取消</button>
-						</div>
-						<a href="" data-toggle="modal" data-dismiss="modal"
-							data-target="#register">还没有账号？点我注册</a>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script>
-		$(function() {
-			console.info("--begin--");
-			$("[data-toggle='tooltip']").tooltip();
-			$('form').bootstrapValidator({
-				message : 'This value is not valid',
-				feedbackIcons : {
-					valid : 'glyphicon glyphicon-ok',
-					invalid : 'glyphicon glyphicon-remove',
-					validating : 'glyphicon glyphicon-refresh'
-				},
-				fields : {
-					username : {
-						message : '用户名验证失败',
-						validators : {
-							notEmpty : {
-								message : '用户名不能为空'
-							},
-							stringLength : {
-								min : 6,
-								max : 15,
-								message : '用户名长度必须在6到18位之间'
-							},
-							regexp : {
-								regexp : /^[a-zA-Z0-9_]+$/,
-								message : '用户名只能包含大写、小写、数字和下划线'
-							}
-						}
-					},
-					password : {
-						message : '密码验证失败',
-						validators : {
-							notEmpty : {
-								message : '密码不能为空'
-							},
-							stringLength : {
-								min : 6,
-								max : 15,
-								message : '密码长度至少为6位字母或数字'
-							},
-							regexp : {
-								regexp : /^[a-zA-Z0-9_]+$/,
-								message : '用户名只能包含大写、小写、数字和下划线'
-							}
-						}
-					},
-					repassword : {
-						message : '密码验证失败',
-						validators : {
-							notEmpty : {
-								message : '密码不能为空'
-							},
-							stringLength : {
-								min : 6,
-								max : 15,
-								message : '密码长度至少为6位字母或数字'
-							},
-							regexp : {
-								regexp : /^[a-zA-Z0-9_]+$/,
-								message : '用户名只能包含大写、小写、数字和下划线'
-							},
-							identical : {
-								field : 'password',
-								message : '两次输入的密码不相符'
-							}
-						}
-					},
-					email : {
-						validators : {
-							notEmpty : {
-								message : '邮箱不能为空'
-							},
-							emailAddress : {
-								message : '邮箱地址格式有误'
-							}
-						}
-					}
-				}
-			});
-			$("#loginfo").submit(
-					function() {
-						$.post("/login", {
-							"userName" : $("#loginfo input[name=username]")
-									.val(),
-							"password" : $("#loginfo input[name=password]")
-									.val()
-						}, function(data) {
-							if (data === "success") {
-								$("#loginfo").modal("hide");
-								window.location.reload();
-							} else {
-								$("#loginfo div:eq(1) i:eq(0)").removeClass(
-										"glyphicon-ok").addClass(
-										"glyphicon-remove");
-								$("#loginfo div:eq(1)").removeClass(
-										"has-success").addClass("has-error");
-								$("#loginfo div:eq(1) small:eq(0)").html(
-										"输入密码有误").show().css("color", "red");
-							}
-						});
-
-						return false;
-					})
-		});
-		function jump(obj){
-			console.info(obj);
-		}
-	</script>
+	<div th:include="footer::loginorregister"></div>
 </body>
 </html>

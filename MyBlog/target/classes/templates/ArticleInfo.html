@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="top::toppage">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<div th:include="top::topmenu"></div>
+		<div class="row">
+			<div class="col-md-9">
+				<div class="alert alert-success alert-index alert-dismissable">
+					<a href="home">首页</a>&nbsp;>&nbsp;<a th:href="@{'/sort/'+${article.cty}}" th:text="${article.cty}"></a>&nbsp;>&nbsp;<span th:text="${article.title}"></span>
+				</div>
+				<p>
+					<a th:href="@{'/artcleinfo/'+${article.id}}" target="_blank"
+						class="blogtitle" th:text="${article.title}"></a> <span
+						class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户：皮皮柚
+					<span class=" glyphicon glyphicon-calendar" aria-hidden="true"></span>
+					<span th:text="${#dates.format(article.createTime,'yyyy-MM-dd')}"></span>
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span th:text="${article.cty}"></span> <span
+						class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span
+						th:text="${article.looknum}"></span>
+				<p th:utext="${article.content}"></p>
+			</div>
+			<div class="col-md-3" th:include="right::rightInfo"></div>
+			<div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div>
+			<script charset="utf-8" type="text/javascript"
+				src="https://changyan.sohu.com/upload/changyan.js"></script>
+			<script type="text/javascript">
+				window.changyan.api.config({
+					appid : 'cytB5znEB',
+					conf : 'prod_30eb3acf1f4454a6383981ada1dbc0bb'
+				});
+			</script>
+		</div>
+		<div th:include="footer::footerPage"></div>
+		<div th:include="footer::loginorregister"></div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			$("img[name!=footer]").each(function() {
+				var imgurl = $(this).attr("src");
+				$(this).attr("src", "/MyBlog/" + imgurl);
+			});
+		})
+	</script>
+</body>
+
+</html>
