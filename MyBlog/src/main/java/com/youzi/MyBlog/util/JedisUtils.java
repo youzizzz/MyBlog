@@ -64,7 +64,26 @@ public class JedisUtils {
 		}
 		return value;
 	}
-
+	/**
+	 * 获取缓存
+	 * 
+	 * @param key
+	 *            键
+	 * @return 值
+	 */
+	public static String publish(String channel,String message) {
+		String value = null;
+		Jedis jedis = null;
+		try {
+			jedis = getResource();
+			jedis.publish(channel, message);
+		} catch (Exception e) {
+			logger.warn("publish {} = {}", channel, message, e);
+		} finally {
+			returnResource(jedis);
+		}
+		return value;
+	}
 	/**
 	 * 获取缓存
 	 * 

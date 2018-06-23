@@ -1,6 +1,8 @@
 package com.youzi.MyBlog.shiro;
 
+import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -16,21 +18,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import com.youzi.MyBlog.dao.UserDao;
+import com.youzi.MyBlog.entity.LoginLog;
 import com.youzi.MyBlog.entity.Permission;
 import com.youzi.MyBlog.entity.Role;
 import com.youzi.MyBlog.entity.User;
+import com.youzi.MyBlog.service.LoginLogService;
+import com.youzi.MyBlog.util.JedisUtils;
 
 @Configuration
 public class MyRealm extends AuthorizingRealm {
 
 	@Autowired
 	private UserDao userDao;
+	
 
 	// 授权
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
 		User user=(User)principals.fromRealm(this.getClass().getName()).iterator().next();
+		
+		
 		SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
 		Set<String> roles=user.getRoles().parallelStream().map(Role::getRname).collect(Collectors.toSet());
 		info.setRoles(roles);
@@ -51,6 +59,7 @@ public class MyRealm extends AuthorizingRealm {
 		UsernamePasswordToken upToke = (UsernamePasswordToken) token;
 		String username = upToke.getUsername();
 		User user = userDao.login(username);
+		JedisUtils.set("loginUserId", user!=null?user.getId():"", 1000*60);
 		return new SimpleAuthenticationInfo(username==null?"":username,
 				(user==null?"":user.getPassword() == "" ? "" : user.getPassword()),
 				this.getClass().getName());

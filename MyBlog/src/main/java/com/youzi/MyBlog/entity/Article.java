@@ -99,7 +99,7 @@ public class Article implements Serializable {
 			}
 
 		}
-		return str_src == null ? "images/apple.jpg" : str_src;
+		return str_src == null ? "/apple.jpg" : str_src;
 	}
 	
 	public void motifyContent() {

@@ -45,6 +45,7 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
         }
         view.setAttributesMap(attributes);  
         mv.setView(view);  
+        mv.setViewName("error");
         return mv;  
     }  
     

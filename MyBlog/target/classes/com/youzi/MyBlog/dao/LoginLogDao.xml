@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youzi.MyBlog.dao.LoginLogDao">
+
+<insert id="addLog" parameterType="com.youzi.MyBlog.entity.LoginLog">
+	insert into LoginLog(id,userid,username,loginDate) values(#{id},#{userId},#{userName},#{loginDate})
+</insert>
+
+</mapper>
+

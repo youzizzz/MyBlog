@@ -11,8 +11,9 @@ import com.youzi.MyBlog.entity.Article;
 public interface ArticleService {
 	public PageInfo findAll(Integer pageNum,Integer pageSize);
 	public Article findById(String id);
-	public List<Article> findByName(String name);
-	public List<Article> findByTechnical(String Technical);
-	public int insert(Article article);
+	public PageInfo findByTitle(String name,Integer pageNum,Integer pageSize);
+	public PageInfo findByTechnical(String Technical,Integer pageNum,Integer pageSize);
+	public PageInfo findByCtyName(String ctyName,Integer pageNum,Integer pageSize);
 	public int updateLookNumById(String id);
+	public List<Article> findHotArticle();
 }

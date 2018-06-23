@@ -38,7 +38,6 @@ public class RedisCache<K, V> implements Cache<K, V>,Serializable {
 
 	@Override
 	public V put(K arg0, V arg1) throws CacheException {
-		System.out.println("arg0:"+arg0+"\t arg1"+arg1);
 		redisTemplate.opsForValue().set(arg0, arg1);
 		return arg1;
 	}

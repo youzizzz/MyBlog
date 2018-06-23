@@ -25,10 +25,8 @@ public class YouZiSessionDao extends CachingSessionDAO {
 	protected void doUpdate(Session session) {
 		ServletRequestAttributes seRequestAttributes=(ServletRequestAttributes) RequestContextHolder.getRequestAttributes();;
 		HttpServletRequest request=seRequestAttributes.getRequest();
-		System.out.println("------requestPath------"+request.getServletPath());
 		//静态文件放过
 		if(Servlets.isStaticFile(request.getServletPath())) {
-				System.out.println(">>>>this is StaticFile"+request.getServletPath());
 			return;
 		}
 		//视图文件放过
@@ -60,9 +58,6 @@ public class YouZiSessionDao extends CachingSessionDAO {
 
 	@Override
 	protected Session doReadSession(Serializable sessionId) {
-		/*Session s=readSession(sessionId);
-		System.out.println("readSession----->"+s+"\r\r this is SessionId-->"+sessionId);
-		return s;*/
 		return null;
 	}
 

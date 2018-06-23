@@ -1,10 +1,13 @@
+C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\entity\LoginLog.java
+C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\dao\LoginLogDao.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\entity\Technical.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\shiro\MyRealm.java
+C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\controller\HomeController.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\entity\User.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\shiro\YouZiCacheManager.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\shiro\YouZiSessionDao.java
-C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\controller\CommonController.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\config\MyExceptionHandler.java
+C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\service\LoginLogService.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\shiro\CredentialsMatcher.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\service\impl\ArticleServiceImpl.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\util\JedisUtils.java
@@ -12,8 +15,11 @@ C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\controll
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\entity\Role.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\BlogApplication.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\util\Servlets.java
+C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\service\impl\LoginLogServiceImpl.java
+C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\service\UserService.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\entity\Permission.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\dao\UserDao.java
+C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\service\impl\UserServiceImpl.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\util\SpringUtil.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\controller\UserController.java
 C:\Users\Administrator\git\MyBlog\MyBlog\src\main\java\com\youzi\MyBlog\entity\RedisCache.java

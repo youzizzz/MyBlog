@@ -25,8 +25,12 @@
 	<include refid="selectPrefix" /> where technicals like CONCAT('%',#{Technical},'%')
 </select>
 
-<insert id="insert" parameterType="com.youzi.MyBlog.entity.Article" useGeneratedKeys="true">
-		insert into Article(id,title,content,description,looknum,createTime,technicals,cty) 
-		values(#{id},#{title},#{content},#{description},#{looknum},#{createTime},#{technicals},#{cty})
-</insert>
+<select id="findByCtyName" parameterType="String" resultType="com.youzi.MyBlog.entity.Article">
+	<include refid="selectPrefix" /> where cty=#{cty}
+</select>
+
+<select id="findHotArticle" parameterType="String" resultType="com.youzi.MyBlog.entity.Article">
+	<include refid="selectPrefix" /> order by looknum desc limit 0,10
+</select>
+
 </mapper>

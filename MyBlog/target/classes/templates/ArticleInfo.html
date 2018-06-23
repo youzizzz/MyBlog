@@ -11,11 +11,14 @@
 		<div class="row">
 			<div class="col-md-9">
 				<div class="alert alert-success alert-index alert-dismissable">
-					<a href="home">首页</a>&nbsp;>&nbsp;<a th:href="@{'/sort/'+${article.cty}}" th:text="${article.cty}"></a>&nbsp;>&nbsp;<span th:text="${article.title}"></span>
+					<a href="home">首页</a>&nbsp;>&nbsp;<a
+						th:href="@{'/sort/'+${article.cty}}" th:text="${article.cty}"></a>&nbsp;>&nbsp;<span
+						th:text="${article.title}"></span>
 				</div>
 				<p>
 					<a th:href="@{'/artcleinfo/'+${article.id}}" target="_blank"
-						class="blogtitle" th:text="${article.title}"></a> <span
+						class="blogtitle" th:text="${article.title}"
+						style="padding-bottom: 7px"></a> <span
 						class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户：皮皮柚
 					<span class=" glyphicon glyphicon-calendar" aria-hidden="true"></span>
 					<span th:text="${#dates.format(article.createTime,'yyyy-MM-dd')}"></span>
@@ -26,7 +29,10 @@
 				<p th:utext="${article.content}"></p>
 			</div>
 			<div class="col-md-3" th:include="right::rightInfo"></div>
-			<div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div>
+			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0"
+				width=330 height=86
+				src="//music.163.com/outchain/player?type=2&id=27890306&auto=1&height=66"></iframe>
+			<div id="SOHUCS" th:sid="${article.id}"></div>
 			<script charset="utf-8" type="text/javascript"
 				src="https://changyan.sohu.com/upload/changyan.js"></script>
 			<script type="text/javascript">
@@ -39,14 +45,6 @@
 		<div th:include="footer::footerPage"></div>
 		<div th:include="footer::loginorregister"></div>
 	</div>
-	<script type="text/javascript">
-		$(function() {
-			$("img[name!=footer]").each(function() {
-				var imgurl = $(this).attr("src");
-				$(this).attr("src", "/MyBlog/" + imgurl);
-			});
-		})
-	</script>
 </body>
 
 </html>

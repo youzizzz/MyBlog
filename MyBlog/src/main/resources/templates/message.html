@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="top::toppage">
+<meta charset="UTF-8">
+<title>留言板-皮皮柚</title>
+</head>
+<body>
+	<div class="container">
+		<div th:include="top::topmenu"></div>
+		<div class="row">
+			<div class="col-md-9">
+				<div class="alert alert-success alert-index alert-dismissable">
+					<span>首页&nbsp;>&nbsp;页面&nbsp;>&nbsp;留言板</span>
+				</div>
+				<div>
+					<p>无聊就来这里逛逛吐槽,一起讨论交流技术,嘻嘻.</p>
+					<p>皮皮柚敬上</p>
+				</div>
+				<iframe frameborder="no" border="0" marginwidth="0" marginheight="0"
+					width=330 height=450
+					src="//music.163.com/outchain/player?type=0&id=809949645&auto=1&height=430"></iframe>
+				<div id="SOHUCS" sid="message"></div>
+				<script charset="utf-8" type="text/javascript"
+					src="https://changyan.sohu.com/upload/changyan.js"></script>
+				<script type="text/javascript">
+					window.changyan.api.config({
+						appid : 'cytB5znEB',
+						conf : 'prod_30eb3acf1f4454a6383981ada1dbc0bb'
+					});
+				</script>
+			</div>
+			<div class="col-md-3" th:include="right::rightInfo"></div>
+			<div th:include="footer::loginorregister"></div>
+		</div>
+		<div th:include="footer::footerPage"></div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			$("img[name!=footer]").each(function() {
+				var imgurl = $(this).attr("src");
+				$(this).attr("src", "/MyBlog/" + imgurl);
+			});
+		})
+	</script>
+</body>
+
+</html>

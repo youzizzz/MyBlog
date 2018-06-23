@@ -9,17 +9,37 @@
 		<div class="row">
 			<div class="col-md-9">
 				<table class="table">
-					<div class="alert alert-success alert-dismissable">最新博客</div>
+					<div class="alert alert-success alert-dismissable">
+						<span th:if="${tag}!=null"><a th:href="@{/home/1}"
+							th:text="首页"> </a>&nbsp;>&nbsp;包含标签<span th:text="${tag}"
+							style="color: blue" id="tag"></span>的所有文章</span> <span
+							th:if="${tag==null&&cty==null&&title==null}">最新精彩内容</span> <span
+							th:if="${cty!=null}"> <a href="/MyBlog/home/1"
+							th:text="首页"></a>&nbsp;>&nbsp; <a
+							th:href="@{'/MyBlog/sort/'+${cty}+'/1'}" th:text="${cty}"
+							id="cty"></a>
+						</span> <span th:if="${title}!=null"><a th:href="@{/home/1}"
+							th:text="首页"> </a>&nbsp;>&nbsp;搜索<span th:text="${title}"
+							style="color: blue" id="title"></span>的结果</span>
+					</div>
 					<tbody>
+						<span th:if="${artcles.list.size()==0}">
+							<div class="nodata">
+								<div>
+									<h3 style="color: red">暂无内容</h3>
+									<span>抱歉,没有符合您查询条件中的结果</span>
+								</div>
+							</div>
+						</span>
 						<tr th:each="art:${artcles.list}">
 							<td class="col-sm-6 col-md-3"><a
 								th:href="@{'/artcleinfo/'+${art.id}}" target="_blank"
-								class="thumbnail p-opt"> <img th:src="@{'/'+${art.ThumbnailUrl}}"
+								class="thumbnail p-opt"> <img style="height:192px;" th:src="${art.ThumbnailUrl}"
 									alt="通用的占位符缩略图" title="">
 							</a></td>
 							<td><p>
 									<a th:href="@{'/artcleinfo/'+${art.id}}" target="_blank"
-										class="blogtitle" th:text="${art.title}"></a> <span
+										class="blogtitle" th:text="${art.title}" style="padding-bottom:7px"></a> <span
 										class="glyphicon glyphicon-user" aria-hidden="true"></span>
 									用户：皮皮柚 <span class=" glyphicon glyphicon-calendar"
 										aria-hidden="true"></span> <span
@@ -32,7 +52,8 @@
 								<form class="navbar-form ydqw">
 									<button
 										class="btn btn-default btn-sm navbar-right btn-success btn-ydqw"
-										onclick="ArtcleTar(this)" th:href="@{'/artcleinfo/'+${art.id}}">阅读全文</button>
+										onclick="ArtcleTar(this)"
+										th:href="@{'/artcleinfo/'+${art.id}}">阅读全文</button>
 								</form></td>
 
 						</tr>
@@ -40,39 +61,63 @@
 				</table>
 				<div id="page">
 					<input type="hidden" id="hidpage" th:value="${artcles.pageNum}" />
-					<nav aria-label="Page navigation">
-						<ul class="pagination">
-							<li th:if="${artcles.pageNum!=1}"><a
-								th:href="@{'/home/'+${artcles.pageNum-1}}"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
-							<li><a th:href="@{'/home/'+${artcles.pageNum}}"
-								th:text="${artcles.pageNum}"></a></li>
-							<li th:if="${artcles.pageNum}+1<=${artcles.pages}"><a
-								th:href="@{'/home/'+${artcles.pageNum+1}}"
-								th:text="${artcles.pageNum}+1"></a></li>
-							<li th:if="${artcles.pageNum}+2<=${artcles.pages}"><a
-								th:href="@{'/home/'+${artcles.pageNum+2}}"
-								th:text="${artcles.pageNum}+2"></a></li>
-							<li th:if="${artcles.pageNum}+3<=${artcles.pages}"><a
-								th:href="@{'/home/'+${artcles.pageNum+3}}"
-								th:text="${artcles.pageNum}+3"></a></li>
-							<li th:if="${artcles.pageNum}+4<=${artcles.pages}"><a
-								th:href="@{'/home/'+${artcles.pageNum+4}}"
-								th:text="${artcles.pageNum}+4"></a></li>
-							<li th:if="${artcles.pageNum}!=${artcles.pages}"><a
-								th:href="@{'/home/'+${artcles.pageNum+1}}" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-							</a></li>
-						</ul>
-					</nav>
+					<div th:if="${artcles.pages!=0}">
+						<nav aria-label="Page navigation">
+							<ul class="pagination">
+								<li th:if="${artcles.pageNum!=1}"><a
+									th:href="@{'/home/'+${artcles.pageNum-1}}"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a></li>
+								<li><a th:href="@{'/home/'+${artcles.pageNum}}"
+									th:text="${artcles.pageNum}"></a></li>
+								<li th:if="${artcles.pageNum}+1<=${artcles.pages}"><a
+									th:href="@{'/home/'+${artcles.pageNum+1}}"
+									th:text="${artcles.pageNum}+1"></a></li>
+								<li th:if="${artcles.pageNum}+2<=${artcles.pages}"><a
+									th:href="@{'/home/'+${artcles.pageNum+2}}"
+									th:text="${artcles.pageNum}+2"></a></li>
+								<li th:if="${artcles.pageNum}+3<=${artcles.pages}"><a
+									th:href="@{'/home/'+${artcles.pageNum+3}}"
+									th:text="${artcles.pageNum}+3"></a></li>
+								<li th:if="${artcles.pageNum}+4<=${artcles.pages}"><a
+									th:href="@{'/home/'+${artcles.pageNum+4}}"
+									th:text="${artcles.pageNum}+4"></a></li>
+								<li th:if="${artcles.pageNum}!=${artcles.pages}"><a
+									th:href="@{'/home/'+${artcles.pageNum+1}}" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+								</a></li>
+							</ul>
+						</nav>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-3" th:include="right::rightInfo"></div>
-			
+
 		</div>
 		<div th:include="footer::footerPage"></div>
 	</div>
 	<div th:include="footer::loginorregister"></div>
+	<script>
+		function jump(obj) {
+			var tag = $(obj).attr("id");
+			window.location.href = "/MyBlog/tag/" + tag + "/1";
+		}
+		$(function() {
+			var tag = $("#tag").text();
+			var cty = $("#cty").text();
+			var title = $("#title").text();
+			$("#page ul li a").each(function() {
+				var text = $(this).attr("href");
+				if (tag != "") {
+					text = text.replace("home", "sort/" + tag);
+				} else if (cty != "") {
+					text = text.replace("home", "sort/" + cty);
+				} else if (title != "") {
+					text = text.replace("home", "serachTitle/" + title);
+				}
+				$(this).attr("href", text);
+			});
+		})
+	</script>
 </body>
 </html>

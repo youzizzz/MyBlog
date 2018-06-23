@@ -13,6 +13,8 @@ public interface ArticleDao {
 	public Article findById(String id);
 	public List<Article> findByName(String name);
 	public List<Article> findByTechnical(String Technical);
-	public int insert(Article article);
+	public List<Article> findByCtyName(String ctyName);
 	public int updateLookNumById(String id);
+	public List<Article> findHotArticle();
+	
 }

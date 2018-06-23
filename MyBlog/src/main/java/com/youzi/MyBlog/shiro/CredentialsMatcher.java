@@ -1,5 +1,9 @@
 package com.youzi.MyBlog.shiro;
 
+import java.util.Date;
+import java.util.UUID;
+
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -7,23 +11,26 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
+
+import com.youzi.MyBlog.entity.LoginLog;
+import com.youzi.MyBlog.entity.User;
+import com.youzi.MyBlog.service.LoginLogService;
+import com.youzi.MyBlog.util.JedisUtils;
 
 @Configuration
 public class CredentialsMatcher extends SimpleCredentialsMatcher {
 	
 	@Autowired
-	private StringRedisTemplate redisTemplate;
+	private LoginLogService loginLogService;
 	
 	@Override
 	public boolean doCredentialsMatch(AuthenticationToken token,
 			AuthenticationInfo info) {
 		String username = (String) token.getPrincipal();
-		String count=redisTemplate.opsForValue().get(username);
+		String count=JedisUtils.get(username);
 		int counts=0;
 		if(null==count||"".equals(count)) {
-			redisTemplate.opsForValue().set(username,"0");
+			JedisUtils.set(username,"0",1000*1000);
 		}else {
 			counts=Integer.parseInt(count);
 		}
@@ -39,13 +46,22 @@ public class CredentialsMatcher extends SimpleCredentialsMatcher {
 			  throw new ExcessiveAttemptsException();  
 		}
 		if(bool) {
-			redisTemplate.delete(username);
+			JedisUtils.del(username);
+			//记录登录次数
+			LoginLog log=new LoginLog();
+			log.setId(UUID.randomUUID().toString());
+			log.setLoginDate(new Date());
+			log.setUserId(JedisUtils.get("loginUserId"));
+			log.setUserName(username);
+			loginLogService.addLog(log);
+			
 		}else {
 			counts++;
-			redisTemplate.opsForValue().set(username, counts+"");
+			JedisUtils.set(username, counts+"",1000*1000);
 		}
+		JedisUtils.del("loginUserId");
 		// 进行密码的比对
-		return this.equals(inPassword, dbPassword);
+		return bool;
 	}
 
 	public CredentialsMatcher() {
